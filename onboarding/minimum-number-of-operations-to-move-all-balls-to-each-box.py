@@ -1,16 +1,16 @@
 class Solution:
     def minOperations(self, boxes: str) -> List[int]:
-        arr = []
+        index_ones = {}
+        for i,n in enumerate(boxes):
+            if n == '1':
+                index_ones[i] = n
+        ans = []
+        for i,n in enumerate(boxes):
+            count = 0
+            for key, value in index_ones.items():
+                count += abs(i-key)
+            ans.append(count)
         
-        for i, balls in enumerate(boxes):
-            if balls == '1':
-                arr.append(i)
+        return ans
+
         
-        res = []
-        for i in range(len(boxes)):
-            tmp = 0
-            for index in arr:
-                tmp += abs(i - index)
-            res.append(tmp)
-            
-        return res

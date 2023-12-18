@@ -1,37 +1,60 @@
 class Bitset:
 
     def __init__(self, size: int):
-        self.bits = [0]*size
-        self.ones = 0
-        self.parity = 0
+        self.size = size
+        self.bitset = ['0'] * self.size
+        self.count1 = 0
+        self.flipcount = 0
         
-    def fix(self, idx: int) -> None:
-        if self.parity +(-1)**self.parity*self.bits[idx] == 0:
-            self.bits[idx] = 1 - self.parity
-            self.ones += 1  
+    def fix(self, idx: int) -> None: #Updates the bit at the index to 1 if 0
+        if self.flipcount % 2 != 0:
+            if self.bitset[idx] == '1':
+                self.count1 += 1
+                self.bitset[idx] = '0'
+        else:
+            if self.bitset[idx] == '0':
+                self.count1 += 1
+                self.bitset[idx] = '1' 
 
-    def unfix(self, idx: int) -> None:
-        if self.parity +(-1)**self.parity*self.bits[idx] == 1:
-            self.bits[idx] = self.parity
-            self.ones -= 1
+    def unfix(self, idx: int) -> None:#Updates the bit at the index to 0 if 1
+        if self.flipcount % 2 != 0:
+            if self.bitset[idx] == '0':
+                self.count1 -= 1
+                self.bitset[idx] = '1'
+        else:
+            if self.bitset[idx] == '1':
+                self.count1 -= 1
+                self.bitset[idx] = '0' 
 
-    def flip(self) -> None:
-        self.parity = 1 - self.parity
-        self.ones = len(self.bits) - self.ones
 
-    def all(self) -> bool:
-        return self.ones == len(self.bits)
+    def flip(self) -> None: #fliping the value 
+        self.flipcount += 1
+        self.count1 = self.size - self.count1
 
-    def one(self) -> bool:
-        return self.ones > 0
-        
+    def all(self) -> bool:# if all the numbers are 1
+        if self.size == self.count1:
+            return True
+        return False
 
-    def count(self) -> int:
-        return self.ones
+    def one(self) -> bool: # at least one 1
+        if self.count1 > 0:
+            return True
+        return False
 
-    def toString(self) -> str:
-        return "".join(map(lambda x: str(self.parity +(-1)**self.parity*x) ,self.bits))
-        
+    def count(self) -> int: # number of one
+        return self.count1
+
+    def toString(self) -> str: 
+        if self.flipcount % 2 == 0:
+            return ''.join(self.bitset)
+        else:
+            s = ''
+            for i in range(self.size):
+                if self.bitset[i] == '1':
+                    s += '0'
+                else:
+                    s += '1'
+        return s
 
 # Your Bitset object will be instantiated and called as such:
 # obj = Bitset(size)

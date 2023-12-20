@@ -1,6 +1,6 @@
 class Solution:
     def maxScoreIndices(self, nums: List[int]) -> List[int]:
-        count1 = nums.count(1)
+        count1 = sum(nums)
         count0 = 0
         store = defaultdict(list)
         store[count1].append(0) 

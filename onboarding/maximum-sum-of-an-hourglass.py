@@ -1,13 +1,10 @@
 class Solution:
     def maxSum(self, grid: List[List[int]]) -> int:
-        res = 0
-        for i in range(len(grid)-2):
-            for j in range(len(grid[0])-2):
-                sm = grid[i][j] + grid[i][j+1] + grid[i][j+2] + grid[i+1][j+1] + \
-                grid[i+2][j] + grid[i+2][j+1] + grid[i+2][j+2]
-                res = max(res, sm)
-        return res
-        # total = 0
-        # for i in range(len(grid)-2):
-        #     for j in range(len(grid[0])):
-        #         total += grid[i][j]
+        ans = 0
+        for row in range(len(grid)-2):
+            for col in range(1,len(grid[0])-1):
+                total = grid[row][col]
+                total += grid[row][col-1] + grid[row][col+1]
+                total += grid[row+1][col] + sum(grid[row+2][col-1:col+2])
+                ans = max(total, ans)
+        return ans

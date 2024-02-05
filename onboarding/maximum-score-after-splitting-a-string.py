@@ -1,17 +1,16 @@
 class Solution:
     def maxScore(self, s: str) -> int:
-        score = s.count('1')
-        if s[0] == '1':
-            score -= 1
-        else:
-            score += 1
+        count_zero = 0
+        count_one = s.count('1')
+        max_score = 0
 
-        max_score = score
-        for i in range(1, len(s) - 1):
-            if s[i] == "0":
-                score += 1
+        for i in range(len(s)-1):
+            if s[i] == '0':
+                count_zero += 1
             else:
-                score -= 1
-            max_score = max(max_score, score)
+                count_one -= 1
+
+            total = count_one + count_zero
+            max_score = max(max_score, total) 
         
         return max_score

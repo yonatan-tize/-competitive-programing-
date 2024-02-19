@@ -31,11 +31,9 @@ class BrowserHistory:
             steps -= 1
 
         return self.curr.val
-        
-
 
 # Your BrowserHistory object will be instantiated and called as such:
-# obj = BrowserHistory(curr)
+# obj = BrowserHistory(homepage)
 # obj.visit(url)
 # param_2 = obj.back(steps)
 # param_3 = obj.forward(steps)

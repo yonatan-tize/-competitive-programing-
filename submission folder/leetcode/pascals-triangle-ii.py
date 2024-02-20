@@ -12,4 +12,3 @@ class Solution:
             ans.append(int(t))
 
         return ans
-            

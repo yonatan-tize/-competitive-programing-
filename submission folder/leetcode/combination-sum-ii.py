@@ -4,29 +4,19 @@ class Solution:
         candidates.sort()
         seen = set()
         def helper(index, curr, total):
-
-            if index == len(candidates):
-                if total == target:
+            if total == target:
                     ans.append(curr[:])
                     return
+
+            if total > target or index == len(candidates):
                 return 
 
-            if total == target:
-                ans.append(curr[:])
-                return
-
-            if total > target:
-                return
-
-            prev = -1
-            for i in range(index, len(candidates)):
-                if candidates[i] == prev:
+            for i in range(index, len(candidates)):  
+                if i > index and candidates[i] == candidates[i-1]:
                     continue
-
                 curr.append(candidates[i])
                 helper(i + 1, curr, total + candidates[i])
                 curr.pop()
-                prev = candidates[i]
 
         helper(0, [], 0)
         return ans
